@@ -1,0 +1,12 @@
+<resources>
+  <string name="app_name">World of Wardrobe</string>
+  <string name="action_settings">Settings</string>
+  <string name="section_format">Select a: %1$d</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_wardrobe_fragment">the wardrobe</string>
+  <string name="hello_top_fragment">the tops</string>
+  <string name="hello_bottom_fragment">the bottoms</string>
+  <string name="hello_accessories_fragment">the accessories</string>
+  <string name="outfit_fragment">the outfit</string>
+</resources>

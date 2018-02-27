@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="edu.cnm.deepdive.worldofwardrobe.wardrobe.WardrobeFragment">
+
+  <TextView
+    android:id="@+id/wardrobe_text"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:layout_gravity="top|center"
+    android:text="@string/hello_wardrobe_fragment"/>
+
+  <StackView
+    android:id="@+id/stack_wardrobe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"/>
+
+
+</FrameLayout>
