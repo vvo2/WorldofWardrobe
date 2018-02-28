@@ -2,20 +2,48 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="edu.cnm.deepdive.worldofwardrobe.wardrobe.WardrobeFragment">
+  tools:context="edu.cnm.deepdive.worldofwardrobe.WardrobeFragment"
+  android:layout_gravity="center">
 
   <TextView
     android:id="@+id/wardrobe_text"
     android:layout_width="wrap_content"
     android:layout_height="20dp"
-    android:layout_gravity="top|center"
+    android:layout_gravity="bottom|center"
     android:text="@string/hello_wardrobe_fragment"/>
 
-  <StackView
-    android:id="@+id/stack_wardrobe"
+  <GridLayout
+    android:id="@+id/wardrobe_gridlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"/>
+    android:columnCount="2"
+    android:rowCount="2"
+    android:layout_gravity="bottom">
 
+    <ImageView
+      android:id="@+id/wardrobe1"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:src="@drawable/wardrobe1"/>
+
+    <ImageView
+      android:id="@+id/wardrobe2"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:src="@drawable/wardrobe2"/>
+
+    <ImageView
+      android:id="@+id/wardrobe3"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:src="@drawable/wardrobe3"/>
+
+    <ImageView
+      android:id="@+id/wardrobe4"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:src="@drawable/wardrobe4"/>
+
+  </GridLayout>
 
 </FrameLayout>
