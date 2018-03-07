@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.worldofwardrobe;
+package edu.cnm.deepdive.worldofwardrobe.fragments;
 
 
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import edu.cnm.deepdive.worldofwardrobe.MainActivity;
+import edu.cnm.deepdive.worldofwardrobe.R;
 
 
 /**
@@ -38,7 +40,7 @@ public class WardrobeFragment extends Fragment {
       }
     });
 
-    warbdrobeImage2 = (ImageView) v.findViewById(R.id.wardrobe1);
+    warbdrobeImage2 = (ImageView) v.findViewById(R.id.wardrobe2);
     warbdrobeImage2.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -46,7 +48,7 @@ public class WardrobeFragment extends Fragment {
       }
     });
 
-    warbdrobeImage3 = (ImageView) v.findViewById(R.id.wardrobe1);
+    warbdrobeImage3 = (ImageView) v.findViewById(R.id.wardrobe3);
     warbdrobeImage3.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -54,7 +56,7 @@ public class WardrobeFragment extends Fragment {
       }
     });
 
-    warbdrobeImage4 = (ImageView) v.findViewById(R.id.wardrobe1);
+    warbdrobeImage4 = (ImageView) v.findViewById(R.id.wardrobe4);
     warbdrobeImage4.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -62,9 +64,16 @@ public class WardrobeFragment extends Fragment {
       }
     });
 
+//    FloatingActionButton fabAddMinus = (FloatingActionButton) findViewById(R.id.fab);
+//    fabAddMinus.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View view) {
+//            mViewPager.setCurrentItem(4, true);
+//      }
+//    });
+
     return v;
   }
-
 
 
 }

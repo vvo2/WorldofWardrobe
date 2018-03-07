@@ -1,12 +1,13 @@
-package edu.cnm.deepdive.worldofwardrobe;
+package edu.cnm.deepdive.worldofwardrobe.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import edu.cnm.deepdive.worldofwardrobe.R;
 
 
 /**
@@ -24,6 +25,8 @@ public class BottomFragment extends Fragment {
   // TODO: Rename and change types of parameters
   private String mParam1;
   private String mParam2;
+
+  private ListView bottomListView;
 
   private OnFragmentInteractionListener mListener;
 
@@ -61,8 +64,33 @@ public class BottomFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_bottom, container, false);
+    final View view = inflater.inflate(R.layout.fragment_bottom, container, false);
+    bottomListView = view.findViewById(R.id.list_bottom);
+
+//    new Thread(new Runnable() {
+//      @Override
+//      public void run() {
+//        Item item = new Item();
+//        item.setItemType("shoe");
+//        item.setItemPrice(49.99);
+//        ((MainActivity)getActivity()).getDatabase().itemsDao()
+//            .insert(item);
+//
+//        List<Item> items = ((MainActivity)getActivity())
+//            .getDatabase().itemsDao().getByItemType("jean");
+//        final ListAdapter adapter = new ArrayAdapter<Item>(getActivity(),
+//            android.R.layout.simple_list_item_1, items);
+//        getActivity().runOnUiThread(new Runnable() {
+//          @Override
+//          public void run() {
+//            (bottomListView).setAdapter(adapter);
+//          }
+//        });
+//
+//      }
+//    }).start();
+
+    return view;
   }
 
   // TODO: Rename method, update argument and hook method into UI event

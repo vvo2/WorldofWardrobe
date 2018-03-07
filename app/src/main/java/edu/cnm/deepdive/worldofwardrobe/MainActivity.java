@@ -1,25 +1,31 @@
 package edu.cnm.deepdive.worldofwardrobe;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase.Callback;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.ImageView;
-import android.widget.TextView;
+import edu.cnm.deepdive.worldofwardrobe.fragments.AccessoriesFragment;
+import edu.cnm.deepdive.worldofwardrobe.fragments.EditFragment;
+import edu.cnm.deepdive.worldofwardrobe.fragments.BottomFragment;
+import edu.cnm.deepdive.worldofwardrobe.fragments.OutfitFragment;
+import edu.cnm.deepdive.worldofwardrobe.fragments.TopFragment;
+import edu.cnm.deepdive.worldofwardrobe.fragments.WardrobeFragment;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
+  private ItemsDatabase database;
 
   /**
    * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -39,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+    //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    //setSupportActionBar(toolbar);
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -49,17 +55,21 @@ public class MainActivity extends AppCompatActivity {
     mViewPager = (ViewPager) findViewById(R.id.container);
     mViewPager.setAdapter(mSectionsPagerAdapter);
 
-    //mViewPager.setCurrentItem(2);
-
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
+        mViewPager.setCurrentItem(4, true);
       }
     });
 
+    FloatingActionButton fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
+    fabEdit.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        mViewPager.setCurrentItem(5, true);
+      }
+    });
   }
 
 
@@ -85,9 +95,36 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  public void switchTab (int position) { //TODO add entities
+  public void switchTab(int position) { //TODO add entities
     mViewPager.setCurrentItem(position, true);
   }
+
+  /**
+   * create database if null and then insert raw query string for default wardrobe_name and item_type_name
+   * @return
+   */
+  public ItemsDatabase getDatabase() {
+    if (database == null) {
+      database = Room.databaseBuilder
+          (getApplicationContext(), ItemsDatabase.class, "itemDB").addCallback(new Callback() {
+        @Override
+        public void onCreate(@NonNull final SupportSQLiteDatabase db) {
+          super.onCreate(db);
+          Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+              db.execSQL("INSERT INTO wardrobe (`wardrobe_name`) VALUES ('formal'), ('casual'), ('medival'), ('armory')");
+              db.execSQL("INSERT INTO item_type (`item_type_name`) VALUES ('top'), ('outer top'), ('bottom'), ('shoe'), ('head piece'), ('scarf'), ('glove');");
+            }
+          });
+        }
+      }).build();
+    }
+
+
+    return database;
+  }
+
   /**
    * A placeholder fragment containing a simple view.
    */
@@ -112,15 +149,13 @@ public class MainActivity extends AppCompatActivity {
       return fragment;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-      TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-      textView
-          .setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-      return rootView;
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//        Bundle savedInstanceState) {
+//      View rootView = inflater.inflate(R.layout.fragment_edit, container, false);
+//
+//      return rootView;
+//    }
   }
 
   /**
@@ -146,6 +181,10 @@ public class MainActivity extends AppCompatActivity {
           return new BottomFragment();
         case 3:
           return new AccessoriesFragment();
+        case 4:
+          return new OutfitFragment();
+        case 5:
+          return new EditFragment();
         default:
           return PlaceholderFragment.newInstance(position + 1);
       }
@@ -154,24 +193,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public int getCount() {
-      // Show 3 total pages.
-      return 4;
+      // Show 5 total pages.
+      return 6;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-      switch (position) {
-        case 0:
-          return "Wardrobes";
-        case 1:
-          return "Tops";
-        case 2:
-          return "Bottom";
-        case 3:
-          return "Accessories";
-      }
-      return null;
-    }
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//      switch (position) {
+//        case 0:
+//          return "Wardrobes";
+//        case 1:
+//          return "Tops";
+//        case 2:
+//          return "Bottom";
+//        case 3:
+//          return "Accessories";
+//        case 4:
+//          return "Outfits";
+//      }
+//      return null;
+//    }
   }
 }
 

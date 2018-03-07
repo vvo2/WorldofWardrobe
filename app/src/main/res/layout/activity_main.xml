@@ -6,9 +6,10 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
+  android:background="@color/colorPrimaryDark"
   tools:context="edu.cnm.deepdive.worldofwardrobe.MainActivity">
 
-  <android.support.design.widget.AppBarLayout
+  <!--android.support.design.widget.AppBarLayout
     android:id="@+id/appbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,7 +26,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-  </android.support.design.widget.AppBarLayout>
+  </android.support.design.widget.AppBarLayout-->
 
   <android.support.v4.view.ViewPager
     android:id="@+id/container"
@@ -38,7 +39,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/fab_margin"
+    android:layout_gravity="start|bottom"
+    app:srcCompat="@drawable/outfit">
+  </android.support.design.widget.FloatingActionButton>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab_edit"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/fab_margin"
     android:layout_gravity="end|bottom"
-    app:srcCompat="@android:drawable/ic_dialog_email"/>
+    app:srcCompat="@drawable/add_minus">
+  </android.support.design.widget.FloatingActionButton>
 
 </android.support.design.widget.CoordinatorLayout>

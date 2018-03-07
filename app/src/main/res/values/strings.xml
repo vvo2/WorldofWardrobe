@@ -9,4 +9,15 @@
   <string name="hello_bottom_fragment">the bottoms</string>
   <string name="hello_accessories_fragment">the accessories</string>
   <string name="outfit_fragment">the outfit</string>
+
+  <string name="item_name">item name</string>
+  <string name="item_price">item price</string>
+  <string name="select_type">type of item</string>
+  <string name="item_location">acquired at</string>
+  <string name="select_wardrobe">select wardrobe</string>
+  <string name="name_new_wardrobe">new wardrobe name</string>
+  <string name="add_new_wardrobe">add new wardrobe</string>
+  <string name="name_new_itemtype">new item type name</string>
+  <string name="add_new_itemtype">add new item type</string>
+
 </resources>
