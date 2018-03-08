@@ -15,7 +15,6 @@ import edu.cnm.deepdive.worldofwardrobe.model.Wardrobe;
 @TypeConverters(DateTypeConverter.class)
 public abstract class ItemsDatabase extends RoomDatabase {
 
-  // private static ItemsDatabase INSTANCE;
   public abstract WardrobeDao getWardrobeDao();
 
   public abstract ItemDao getItemDao();

@@ -72,17 +72,11 @@
     android:id="@+id/button_additem"
     android:background="@color/colorPrimaryDark"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
+    android:layout_width="329dp"
     android:src="@drawable/add_item"/>
-  <ImageButton
-    android:id="@+id/button_subtract"
-    android:background="@color/colorPrimaryDark"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:src="@drawable/subtract_item"/>
 
 
-    <EditText
+  <EditText
       android:id="@+id/edittext_wardrobe"
       android:background="@drawable/rouded_edittext"
       android:layout_width="match_parent"
@@ -96,7 +90,7 @@
 
     <Button
       android:id="@+id/button_add_wardrobe"
-      android:background="@drawable/rouded_edittext"
+      android:background="@drawable/rounded_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingTop="10dp"
@@ -104,7 +98,7 @@
       android:ems="10"
       android:text="@string/add_new_wardrobe"
       android:textAlignment="center"
-      android:textColor="@color/colorAccent"/>
+      android:textColor="@color/colorPrimary"/>
 
     <EditText
       android:id="@+id/edittext_itemtype"
@@ -120,7 +114,7 @@
 
     <Button
       android:id="@+id/button_add_itemtype"
-      android:background="@drawable/rouded_edittext"
+      android:background="@drawable/rounded_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingTop="10dp"
@@ -128,6 +122,6 @@
       android:ems="10"
       android:text="@string/add_new_itemtype"
       android:textAlignment="center"
-      android:textColor="@color/colorAccent"/>
+      android:textColor="@color/colorPrimary"/>
 
 </GridLayout>

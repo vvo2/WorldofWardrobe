@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -18,60 +19,94 @@ import edu.cnm.deepdive.worldofwardrobe.model.ItemType;
 import edu.cnm.deepdive.worldofwardrobe.model.Wardrobe;
 import java.util.List;
 
-public class EditFragment extends Fragment implements OnClickListener{
+public class EditFragment extends Fragment implements OnClickListener {
 
   private Spinner spinnerType;
   private Spinner spinnerWardrobe;
   private ImageButton addButton;
-  private ImageButton removeButton;
+  private Button addWardrobeButton;
+  private Button addTypeButton;
   private View view;
 
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-     view = inflater.inflate(R.layout.fragment_edit, container, false);
-
-    addButton = (ImageButton) view.findViewById(R.id.button_additem);
-    addButton.setOnClickListener(this);
-
-//    removeButton = (ImageButton) view.findViewById(R.id.button_subtract);
-//    removeButton.setOnClickListener(removeMethod);
+    view = inflater.inflate(R.layout.fragment_edit, container, false);
 
     spinnerType = view.findViewById(R.id.spinner_type);
     spinnerWardrobe = view.findViewById(R.id.spinner_wardrobe);
 
+    addButton = (ImageButton) view.findViewById(R.id.button_additem);
+    addButton.setOnClickListener(this);
+    addTypeButton = (Button) view.findViewById(R.id.button_add_itemtype);
+    addTypeButton.setOnClickListener(this);
+    addWardrobeButton = (Button) view.findViewById(R.id.button_add_wardrobe);
+    addWardrobeButton.setOnClickListener(this);
+
     new TypesGetter().execute();
     new WardrobesGetter().execute();
-    //TODO new wardrobe Adder
-    //TODO new type Adder
 
     return view;
   }
 
   @Override
   public void onClick(View v) {
-    final String strName = ((EditText) view.findViewById(R.id.edittext_name)).getText().toString();
-    final double price = Double.parseDouble(((EditText) view.findViewById(R.id.edittext_price)).getText().toString());
-    final String strLocation = ((EditText) view.findViewById(R.id.edittext_location)).getText().toString();
 
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
+    if (v == addButton) {
 
-        Item additem = new Item();
-        additem.setItemTypeID(((ItemType)spinnerType.getSelectedItem()).getItemTypeID());
-        additem.setWardrobeID(((Wardrobe)spinnerWardrobe.getSelectedItem()).getWardrobeID());
-        additem.setItemName(strName);
-        additem.setItemPrice(price);
-        additem.setLocation(strLocation);
-        additem.setWornCount(0);
+      final String strName = ((EditText)
+          view.findViewById(R.id.edittext_name)).getText().toString();
+      final double price = Double.parseDouble(((EditText)
+          view.findViewById(R.id.edittext_price)).getText().toString());
+      final String strLocation = ((EditText)
+          view.findViewById(R.id.edittext_location)).getText().toString();
 
-        ((MainActivity) getActivity()).getDatabase().getItemDao().insertOne(additem);
+      new Thread(new Runnable() {
+        @Override
+        public void run() {
 
-      }
-    }).start();
+          Item addItem = new Item();
+          addItem.setItemTypeID(((ItemType) spinnerType.getSelectedItem()).getItemTypeID());
+          addItem.setWardrobeID(((Wardrobe) spinnerWardrobe.getSelectedItem()).getWardrobeID());
+          addItem.setItemName(strName);
+          addItem.setItemPrice(price);
+          addItem.setLocation(strLocation);
+          addItem.setWornCount(0);
+
+          ((MainActivity) getActivity()).getDatabase().getItemDao().insertOne(addItem);
+
+        }
+      }).start();
+    } else if (v == addTypeButton) {
+      final String strTypeName = ((EditText)
+          view.findViewById(R.id.edittext_itemtype)).getText().toString();
+
+      new Thread(new Runnable() {
+        @Override
+        public void run() {
+          ItemType addType = new ItemType();
+          addType.setItemTypeName(strTypeName);
+
+          ((MainActivity) getActivity()).getDatabase().getItemTypeDao().insertType(addType);
+        }
+      }).start();
+    } else if (v == addWardrobeButton) {
+      final String strWardrobeName = ((EditText)
+          view.findViewById(R.id.edittext_wardrobe)).getText().toString();
+
+      new Thread(new Runnable() {
+        @Override
+        public void run() {
+          Wardrobe addWardrobe = new Wardrobe();
+          addWardrobe.setWardrobeName(strWardrobeName);
+
+          ((MainActivity) getActivity()).getDatabase().getWardrobeDao().insertWardrobe(addWardrobe);
+        }
+      }).start();
+    }
   }
+
 
   private class TypesGetter extends AsyncTask<Object, Object, List<ItemType>> {
 
@@ -82,7 +117,9 @@ public class EditFragment extends Fragment implements OnClickListener{
 
     @Override
     protected void onPostExecute(List<ItemType> itemTypes) {
-      spinnerType.setAdapter(new ArrayAdapter<ItemType>(getActivity(), android.R.layout.simple_spinner_item, itemTypes));
+      spinnerType.setAdapter(
+          new ArrayAdapter<ItemType>(getActivity(), android.R.layout.simple_spinner_item,
+              itemTypes));
     }
   }
 
@@ -95,7 +132,9 @@ public class EditFragment extends Fragment implements OnClickListener{
 
     @Override
     protected void onPostExecute(List<Wardrobe> wardrobes) {
-      spinnerWardrobe.setAdapter(new ArrayAdapter<Wardrobe>(getActivity(), android.R.layout.simple_spinner_item, wardrobes));
+      spinnerWardrobe.setAdapter(
+          new ArrayAdapter<Wardrobe>(getActivity(), android.R.layout.simple_spinner_item,
+              wardrobes));
     }
   }
 

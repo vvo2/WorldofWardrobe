@@ -64,14 +64,6 @@ public class WardrobeFragment extends Fragment {
       }
     });
 
-//    FloatingActionButton fabAddMinus = (FloatingActionButton) findViewById(R.id.fab);
-//    fabAddMinus.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View view) {
-//            mViewPager.setCurrentItem(4, true);
-//      }
-//    });
-
     return v;
   }
 

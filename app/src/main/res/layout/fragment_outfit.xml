@@ -14,5 +14,9 @@
     android:layout_gravity="bottom|center"
     android:textColor="@color/colorPrimary"
     android:text="@string/outfit_fragment"/>
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:src="@drawable/human_outline"/>
 
 </FrameLayout>
