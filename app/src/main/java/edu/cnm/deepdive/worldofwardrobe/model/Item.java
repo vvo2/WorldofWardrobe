@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.Context;
+import java.io.File;
 
 @Entity(tableName = "item", foreignKeys = {@ForeignKey(entity = Wardrobe.class,
     parentColumns = "wardrobe_id",
@@ -101,4 +103,9 @@ public class Item {
   public void setWornCount(int wornCount) {
     this.wornCount = wornCount;
   }
+
+  public String toString() {
+    return itemName + " " + itemPrice + " " + itemTypeID;
+  }
+
 }

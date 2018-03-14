@@ -17,11 +17,11 @@ public interface ItemDao {
   @Query("SELECT * FROM item")
   List<Item> getAll();
 
-  @Query("SELECT * FROM item WHERE item_name = :itemName")
-  List<Item> getByName(String itemName);
+  @Query("SELECT * FROM item WHERE item_type_id = :itemTypeID")
+  List<Item> getByTypeID(String itemTypeID);
 
   @Insert
-  void insertOne(Item item);
+  long insertOne(Item item);
 
   @Insert
   void insertMany(List<Item> itemList);

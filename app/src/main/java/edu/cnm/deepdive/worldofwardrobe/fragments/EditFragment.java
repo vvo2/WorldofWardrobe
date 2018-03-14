@@ -1,8 +1,17 @@
 package edu.cnm.deepdive.worldofwardrobe.fragments;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,23 +20,31 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import edu.cnm.deepdive.worldofwardrobe.MainActivity;
 import edu.cnm.deepdive.worldofwardrobe.R;
 import edu.cnm.deepdive.worldofwardrobe.model.Item;
 import edu.cnm.deepdive.worldofwardrobe.model.ItemType;
+import edu.cnm.deepdive.worldofwardrobe.model.PictureUtils;
 import edu.cnm.deepdive.worldofwardrobe.model.Wardrobe;
+import java.io.File;
 import java.util.List;
 
 public class EditFragment extends Fragment implements OnClickListener {
+
+  private static final int REQUEST_PHOTO= 2;
 
   private Spinner spinnerType;
   private Spinner spinnerWardrobe;
   private ImageButton addButton;
   private Button addWardrobeButton;
   private Button addTypeButton;
+  private ImageView photoView;
+  private String photoFileName;
   private View view;
-
+  private Item item;
+  File photoFile; //dont need to be final regardless from anonomous
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +60,10 @@ public class EditFragment extends Fragment implements OnClickListener {
     addTypeButton.setOnClickListener(this);
     addWardrobeButton = (Button) view.findViewById(R.id.button_add_wardrobe);
     addWardrobeButton.setOnClickListener(this);
+
+    photoView = (ImageView) view.findViewById(R.id.view_photo);
+    photoView.setOnClickListener(this);
+
 
     new TypesGetter().execute();
     new WardrobesGetter().execute();
@@ -61,10 +82,13 @@ public class EditFragment extends Fragment implements OnClickListener {
           view.findViewById(R.id.edittext_price)).getText().toString());
       final String strLocation = ((EditText)
           view.findViewById(R.id.edittext_location)).getText().toString();
+      final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
       new Thread(new Runnable() {
         @Override
         public void run() {
+
+
 
           Item addItem = new Item();
           addItem.setItemTypeID(((ItemType) spinnerType.getSelectedItem()).getItemTypeID());
@@ -74,8 +98,30 @@ public class EditFragment extends Fragment implements OnClickListener {
           addItem.setLocation(strLocation);
           addItem.setWornCount(0);
 
-          ((MainActivity) getActivity()).getDatabase().getItemDao().insertOne(addItem);
+          long itemID = ((MainActivity) getActivity()).getDatabase().getItemDao().insertOne(addItem);
 
+          photoFileName = "IMG_" + itemID + ".jpg";
+          File filesDir = getActivity().getFilesDir();
+          photoFile = new File(filesDir, photoFileName);
+
+          Uri uri = FileProvider.getUriForFile(getActivity(),
+              "edu.cnm.deepdive.worldofwardrobe.FileProvider", photoFile);
+          cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+          List<ResolveInfo> cameraActivities = getActivity()
+              .getPackageManager().queryIntentActivities(cameraIntent,
+                  PackageManager.MATCH_DEFAULT_ONLY);
+
+          for (ResolveInfo activity : cameraActivities) {
+            getActivity().grantUriPermission(activity.activityInfo.packageName,
+                uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+          Log.v("fileLocation", "where's my file?" + uri );
+            startActivityForResult(cameraIntent, REQUEST_PHOTO);
+
+
+
+          //TODO finsih camera intent
         }
       }).start();
     } else if (v == addTypeButton) {
@@ -104,7 +150,10 @@ public class EditFragment extends Fragment implements OnClickListener {
           ((MainActivity) getActivity()).getDatabase().getWardrobeDao().insertWardrobe(addWardrobe);
         }
       }).start();
-    }
+    } else if (v == photoView) {
+
+
+    } //TODO OnClick for photo_view to select file from local
   }
 
 
@@ -138,4 +187,19 @@ public class EditFragment extends Fragment implements OnClickListener {
     }
   }
 
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) { //get back from activity camera
+    Uri uri = FileProvider.getUriForFile(getActivity(),
+        "edu.cnm.deepdive.worldofwardrobe.FileProvider",
+        photoFile);
+    getActivity().revokeUriPermission(uri,
+        Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+    if (photoFile == null || !photoFile.exists()) {
+      photoView.setImageDrawable(null);
+    } else {
+      Bitmap bitmap = PictureUtils.getScaledBitmap(
+          photoFile.getPath(), getActivity());
+      photoView.setImageBitmap(bitmap);
+    }
+  }
 }

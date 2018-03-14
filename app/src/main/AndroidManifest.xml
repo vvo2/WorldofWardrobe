@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="edu.cnm.deepdive.worldofwardrobe">
 
+  <uses-feature android:name="android.hardware.camera"
+    android:required="false"/>
   <application
     android:name=".WardrobeApplication"
     android:allowBackup="true"
@@ -20,6 +22,16 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <provider
+      android:authorities="edu.cnm.deepdive.worldofwardrobe.FileProvider"
+      android:name="android.support.v4.content.FileProvider"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/files_path"/>
+    </provider> <!-- for camera photo file (and file selecting?).
+     and make files_path.xml -->
   </application>
 
 </manifest>

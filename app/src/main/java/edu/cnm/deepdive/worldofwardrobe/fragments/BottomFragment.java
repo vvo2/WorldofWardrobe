@@ -70,12 +70,6 @@ public class BottomFragment extends Fragment {
 //    new Thread(new Runnable() {
 //      @Override
 //      public void run() {
-//        Item item = new Item();
-//        item.setItemType("shoe");
-//        item.setItemPrice(49.99);
-//        ((MainActivity)getActivity()).getDatabase().itemsDao()
-//            .insert(item);
-//
 //        List<Item> items = ((MainActivity)getActivity())
 //            .getDatabase().itemsDao().getByItemType("jean");
 //        final ListAdapter adapter = new ArrayAdapter<Item>(getActivity(),

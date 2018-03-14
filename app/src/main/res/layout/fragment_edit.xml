@@ -13,29 +13,27 @@
 
   <Spinner
     android:id="@+id/spinner_wardrobe"
-    android:background="@drawable/rouded_edittext"
+    android:background="@drawable/rounded_spinner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:ems="10"
     android:text="@string/select_wardrobe"
-    android:textAlignment="center"
-    android:textColor="@color/colorAccent"/>
+    android:textAlignment="center"/>
   <Spinner
     android:id="@+id/spinner_type"
-    android:background="@drawable/rouded_edittext"
+    android:background="@drawable/rounded_spinner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:ems="10"
     android:text="@string/select_type"
-    android:textAlignment="center"
-    android:textColor="@color/colorAccent"/>
+    android:textAlignment="center"/>
   <EditText
     android:id="@+id/edittext_name"
-    android:background="@drawable/rouded_edittext"
+    android:background="@drawable/rounded_edittext"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
@@ -46,8 +44,8 @@
     android:textColor="@color/colorAccent"/>
   <EditText
     android:id="@+id/edittext_price"
-    android:background="@drawable/rouded_edittext"
-    android:layout_width="match_parent"
+    android:background="@drawable/rounded_edittext"
+    android:layout_width="93dp"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
@@ -58,8 +56,8 @@
 
   <EditText
     android:id="@+id/edittext_location"
-    android:background="@drawable/rouded_edittext"
-    android:layout_width="match_parent"
+    android:background="@drawable/rounded_edittext"
+    android:layout_width="230dp"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
@@ -71,14 +69,14 @@
   <ImageButton
     android:id="@+id/button_additem"
     android:background="@color/colorPrimaryDark"
-    android:layout_height="wrap_content"
-    android:layout_width="329dp"
+    android:layout_height="44dp"
+    android:layout_width="330dp"
     android:src="@drawable/add_item"/>
 
 
   <EditText
       android:id="@+id/edittext_wardrobe"
-      android:background="@drawable/rouded_edittext"
+      android:background="@drawable/rounded_edittext"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingTop="10dp"
@@ -102,11 +100,12 @@
 
     <EditText
       android:id="@+id/edittext_itemtype"
-      android:background="@drawable/rouded_edittext"
+      android:background="@drawable/rounded_edittext"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingTop="10dp"
       android:paddingBottom="10dp"
+      android:textColorHighlight="@color/colorCyan"
       android:ems="10"
       android:text="@string/name_new_itemtype"
       android:textAlignment="center"
@@ -123,5 +122,10 @@
       android:text="@string/add_new_itemtype"
       android:textAlignment="center"
       android:textColor="@color/colorPrimary"/>
+
+  <ImageView
+    android:id="@+id/view_photo"
+    android:layout_width="100dp"
+    android:layout_height="100dp"/>
 
 </GridLayout>
