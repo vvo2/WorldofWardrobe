@@ -20,6 +20,9 @@ public interface ItemDao {
   @Query("SELECT * FROM item WHERE item_type_id = :itemTypeID")
   List<Item> getByTypeID(String itemTypeID);
 
+  @Query("SELECT * FROM item WHERE item_type_id IN(:itemTypeID)")
+  List<Item> getByTypeIDs(long[] itemTypeID);
+
   @Insert
   long insertOne(Item item);
 

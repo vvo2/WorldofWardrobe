@@ -5,19 +5,22 @@
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_wardrobe_fragment">the wardrobe</string>
+  <string name="text_add_wardrobe">add a new wardrobe</string>
   <string name="hello_top_fragment">the tops</string>
   <string name="hello_bottom_fragment">the bottoms</string>
   <string name="hello_accessories_fragment">the accessories</string>
   <string name="outfit_fragment">the outfit</string>
 
-  <string name="item_name">item name</string>
-  <string name="item_price">item price</string>
-  <string name="select_type">type of item</string>
-  <string name="item_location">acquired at</string>
   <string name="select_wardrobe">select wardrobe</string>
-  <string name="name_new_wardrobe">new wardrobe name</string>
-  <string name="add_new_wardrobe">add new wardrobe</string>
-  <string name="name_new_itemtype">new item type name</string>
-  <string name="add_new_itemtype">add new item type</string>
+  <string name="select_type">type of item</string>
+  <string name="item_name">item name</string>
+  <string name="item_price">$</string>
+  <string name="item_location">acquired at</string>
+  <string name="add_with_pic_file">+ pic file</string>
+  <string name="add_with_camera_pic">+ camera pic</string>
+  <string name="name_new_wardrobe">name a wardrobe</string>
+  <string name="add_new_wardrobe">+ new wardrobe</string>
+  <string name="name_new_itemtype">name a type</string>
+  <string name="add_new_itemtype">+ new item type</string>
 
 </resources>

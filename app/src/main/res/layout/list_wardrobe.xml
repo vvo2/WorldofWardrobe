@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/rounded_button">
+
+  <ImageView
+    android:id="@+id/image_wardrobe"
+    android:layout_width="200sp"
+    android:layout_height="150sp"/>
+
+  <TextView
+    android:id="@+id/text_wardrobe_name"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_toRightOf="@id/image_wardrobe"
+    android:layout_margin="10sp"
+    android:textSize="20sp"
+    android:textColor="@color/colorPrimary"/>
+
+  <TextView
+    android:id="@+id/text_wardrobe_desc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_toRightOf="@id/image_wardrobe"
+    android:layout_below="@id/text_wardrobe_name"
+    android:layout_margin="10sp"
+    android:textSize="20sp"
+    android:textColor="@color/colorPrimary"/>
+
+</RelativeLayout>

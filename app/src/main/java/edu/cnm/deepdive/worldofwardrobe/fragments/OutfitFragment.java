@@ -33,7 +33,7 @@ public class OutfitFragment extends Fragment {
     // Inflate the layout for this fragment
     final View view = inflater.inflate(R.layout.fragment_outfit, container, false);
     topImageView = view.findViewById(R.id.top_imageview);
-
+//TODO show user selected tops, bottoms, and accessories
     int itemID = 16;
 
     photoFileName = "IMG_" + itemID + ".jpg";

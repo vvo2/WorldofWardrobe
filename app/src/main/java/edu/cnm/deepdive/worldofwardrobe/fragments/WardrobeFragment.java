@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ListView;
 import edu.cnm.deepdive.worldofwardrobe.MainActivity;
 import edu.cnm.deepdive.worldofwardrobe.R;
+import java.util.List;
 
 
 /**
@@ -17,10 +17,8 @@ import edu.cnm.deepdive.worldofwardrobe.R;
  */
 public class WardrobeFragment extends Fragment {
 
-  private ImageView warbdrobeImage1;
-  private ImageView warbdrobeImage2;
-  private ImageView warbdrobeImage3;
-  private ImageView warbdrobeImage4;
+  private ListView wardListView;
+  private WardrobePicAdapter wardAdapter;
 
   public WardrobeFragment() {
     // Required empty public constructor
@@ -30,42 +28,24 @@ public class WardrobeFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    View v = inflater.inflate(R.layout.fragment_wardrobe, container, false);
+    final View viewWard = inflater.inflate(R.layout.fragment_wardrobe, container, false);
 
-    warbdrobeImage1 = (ImageView) v.findViewById(R.id.wardrobe1);
-    warbdrobeImage1.setOnClickListener(new OnClickListener() {
+    new Thread(new Runnable() {
       @Override
-      public void onClick(View v) {
-        ((MainActivity) getActivity()).switchTab(1);
+      public void run() {
+        List listWard = ((MainActivity)getActivity()).getDatabase().getWardrobeDao().getAll();
+        wardListView = viewWard.findViewById(R.id.listview_wardrobe);
+        wardAdapter = new WardrobePicAdapter(getActivity(), listWard);
+        getActivity().runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            (wardListView).setAdapter(wardAdapter);
+          }
+        });
       }
-    });
+    }).start();
 
-    warbdrobeImage2 = (ImageView) v.findViewById(R.id.wardrobe2);
-    warbdrobeImage2.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        ((MainActivity) getActivity()).switchTab(1);
-      }
-    });
-
-    warbdrobeImage3 = (ImageView) v.findViewById(R.id.wardrobe3);
-    warbdrobeImage3.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        ((MainActivity) getActivity()).switchTab(1);
-      }
-    });
-
-    warbdrobeImage4 = (ImageView) v.findViewById(R.id.wardrobe4);
-    warbdrobeImage4.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        ((MainActivity) getActivity()).switchTab(1);
-      }
-    });
-
-    return v;
+    return viewWard;
   }
-
 
 }

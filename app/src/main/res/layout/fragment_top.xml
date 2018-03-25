@@ -1,23 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/items_top"
+  android:id="@+id/top_fragment"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context="edu.cnm.deepdive.worldofwardrobe.fragments.TopFragment">
 
-  <!-- TODO: Update blank fragment layout -->
   <TextView
     android:id="@+id/top_text"
-    android:layout_width="100dp"
-    android:layout_height="20dp"
+    android:layout_width="50pt"
+    android:layout_height="10pt"
+    android:textAlignment="center"
     android:layout_gravity="bottom|center"
     android:textColor="@color/colorPrimary"
     android:text="@string/hello_top_fragment"/>
-  <ListView
-    android:id="@+id/listview_top"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorCyan"/>
+
+<ListView
+  android:id="@+id/listview_tops"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"/>
 
 </FrameLayout>

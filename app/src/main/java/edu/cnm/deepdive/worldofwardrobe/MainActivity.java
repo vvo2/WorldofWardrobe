@@ -25,6 +25,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
+  public static final String TYPE_ID = "itemTypeID";
   private ItemsDatabase database;
 
   /**
@@ -176,11 +177,23 @@ public class MainActivity extends AppCompatActivity {
         case 0:
           return new WardrobeFragment();
         case 1:
-          return new TopFragment();
+          TopFragment topFragment = new TopFragment();
+          Bundle bundleTop = new Bundle();
+          bundleTop.putLongArray(TYPE_ID, new long[]{1, 2});
+          topFragment.setArguments(bundleTop);
+          return topFragment;
         case 2:
-          return new BottomFragment();
+          BottomFragment bottomFragment = new BottomFragment();
+          Bundle bundleBottom = new Bundle();
+          bundleBottom.putLongArray(TYPE_ID, new long[]{3, 4});
+          bottomFragment.setArguments(bundleBottom);
+          return bottomFragment;
         case 3:
-          return new AccessoriesFragment();
+          AccessoriesFragment accFragment = new AccessoriesFragment();
+          Bundle bundleAcc = new Bundle();
+          bundleAcc.putLongArray(TYPE_ID, new long[]{5, 6, 7});
+          accFragment.setArguments(bundleAcc);
+          return accFragment;
         case 4:
           return new OutfitFragment();
         case 5:

@@ -11,18 +11,18 @@
   <TextView
     android:id="@+id/outfit_text"
     android:layout_width="wrap_content"
-    android:layout_height="20dp"
+    android:layout_height="10pt"
     android:layout_gravity="bottom|center"
     android:textColor="@color/colorPrimary"
     android:text="@string/outfit_fragment"/>
   <ImageView
     android:layout_width="match_parent"
-    android:layout_height="313dp"
+    android:layout_height="156pt"
     android:src="@drawable/human_outline"/>
   <ImageView
     android:id="@+id/top_imageview"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
+    android:layout_width="100pt"
+    android:layout_height="100pt"
     />
 
 </LinearLayout>
