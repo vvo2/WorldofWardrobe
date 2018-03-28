@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@drawable/rounded_button">
+  android:background="@drawable/rounded_field">
 
   <ImageView
     android:id="@+id/image_wardrobe"
@@ -14,9 +14,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_toRightOf="@id/image_wardrobe"
-    android:layout_margin="10sp"
-    android:textSize="20sp"
-    android:textColor="@color/colorPrimary"/>
+    android:layout_margin="@dimen/layout"
+    android:textSize="@dimen/h3"
+    android:textColor="@color/colorText"/>
 
   <TextView
     android:id="@+id/text_wardrobe_desc"
@@ -24,8 +24,8 @@
     android:layout_height="match_parent"
     android:layout_toRightOf="@id/image_wardrobe"
     android:layout_below="@id/text_wardrobe_name"
-    android:layout_margin="10sp"
-    android:textSize="20sp"
-    android:textColor="@color/colorPrimary"/>
+    android:layout_margin="@dimen/layout"
+    android:textSize="@dimen/h4"
+    android:textColor="@color/colorText"/>
 
 </RelativeLayout>

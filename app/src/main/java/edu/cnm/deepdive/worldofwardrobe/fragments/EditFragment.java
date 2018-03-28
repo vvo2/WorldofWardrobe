@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -40,6 +39,11 @@ public class EditFragment extends Fragment implements OnClickListener {
 
   private static final int REQUEST_PHOTO = 2;
   private static final int GALLERY = 1;
+  public static final String IMAGE = "image/*";
+  public static final String FILE_PROVIDER = "edu.cnm.deepdive.worldofwardrobe.FileProvider";
+  public static final String IMAGE_JPEG = "image/jpeg";
+  public static final String ITEM_SAVED = "Item Saved!";
+  public static final String FAILED = "Failed!";
 
   private Spinner spinnerType;
   private Spinner spinnerWardrobe;
@@ -50,7 +54,6 @@ public class EditFragment extends Fragment implements OnClickListener {
   private ImageView photoView;
   private String photoFileName;
   private View view;
-  private Item item;
   File photoFile; //dont need to be final regardless from anonomous
 
   @Override
@@ -93,7 +96,7 @@ public class EditFragment extends Fragment implements OnClickListener {
       final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
       final Intent galleryIntent = new Intent(Intent.ACTION_PICK,
           android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-          galleryIntent.setType("image/*");
+          galleryIntent.setType(IMAGE);
 
       new Thread(new Runnable() {
         @Override
@@ -114,7 +117,7 @@ public class EditFragment extends Fragment implements OnClickListener {
           File filesDir = getActivity().getFilesDir();
           photoFile = new File(filesDir, photoFileName);
           Uri uri = FileProvider.getUriForFile(getActivity(),
-              "edu.cnm.deepdive.worldofwardrobe.FileProvider", photoFile);
+              FILE_PROVIDER, photoFile);
 
           if (v == addWithCamera) {
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
@@ -204,8 +207,7 @@ public class EditFragment extends Fragment implements OnClickListener {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) { //get back from activity camera
-    Uri uri = FileProvider.getUriForFile(getActivity(),
-        "edu.cnm.deepdive.worldofwardrobe.FileProvider", photoFile);
+    Uri uri = FileProvider.getUriForFile(getActivity(), FILE_PROVIDER, photoFile);
     getActivity().revokeUriPermission(uri,
         Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
     if (photoFile == null || !photoFile.exists()) {
@@ -222,11 +224,11 @@ public class EditFragment extends Fragment implements OnClickListener {
         try {
         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedURI);
         saveSelectedPic(bitmap);
-        Toast.makeText(getActivity(), "Image Saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), ITEM_SAVED, Toast.LENGTH_SHORT).show();
         photoView.setImageBitmap(bitmap);
         } catch (IOException e) {
           e.printStackTrace();
-          Toast.makeText(getActivity(), "Failed!", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getActivity(), FAILED, Toast.LENGTH_SHORT).show();
         }
       }
     }
@@ -242,12 +244,11 @@ public class EditFragment extends Fragment implements OnClickListener {
       outFile.write(bytes.toByteArray());
       MediaScannerConnection.scanFile(getActivity(),
           new String[]{file.getPath()},
-          new String[]{"image/jpeg"}, null);
+          new String[]{IMAGE_JPEG}, null);
       outFile.close();
-      Log.d("TAG", "File Saved::--->" + file.getAbsolutePath());
     } catch (IOException e) {
       e.printStackTrace();
-      Toast.makeText(getActivity(), "Failed!", Toast.LENGTH_SHORT).show();
+      Toast.makeText(getActivity(), FAILED, Toast.LENGTH_SHORT).show();
     }
   }
 

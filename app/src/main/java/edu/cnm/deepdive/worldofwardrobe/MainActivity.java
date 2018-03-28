@@ -21,12 +21,14 @@ import edu.cnm.deepdive.worldofwardrobe.fragments.BottomFragment;
 import edu.cnm.deepdive.worldofwardrobe.fragments.OutfitFragment;
 import edu.cnm.deepdive.worldofwardrobe.fragments.TopFragment;
 import edu.cnm.deepdive.worldofwardrobe.fragments.WardrobeFragment;
+import java.io.File;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
   public static final String TYPE_ID = "itemTypeID";
   private ItemsDatabase database;
+
 
   /**
    * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
    * The {@link ViewPager} that will host the section contents.
    */
   private ViewPager mViewPager;
+  private OutfitFragment outfitFragment = new OutfitFragment();
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
     // Set up the ViewPager with the sections adapter.
-    mViewPager = (ViewPager) findViewById(R.id.container);
+    mViewPager = findViewById(R.id.container);
     mViewPager.setAdapter(mSectionsPagerAdapter);
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    FloatingActionButton fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
+    FloatingActionButton fabEdit = findViewById(R.id.fab_edit);
     fabEdit.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -195,7 +199,8 @@ public class MainActivity extends AppCompatActivity {
           accFragment.setArguments(bundleAcc);
           return accFragment;
         case 4:
-          return new OutfitFragment();
+
+          return outfitFragment;
         case 5:
           return new EditFragment();
         default:
@@ -209,23 +214,11 @@ public class MainActivity extends AppCompatActivity {
       // Show 5 total pages.
       return 6;
     }
+  }
 
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//      switch (position) {
-//        case 0:
-//          return "Wardrobes";
-//        case 1:
-//          return "Tops";
-//        case 2:
-//          return "Bottom";
-//        case 3:
-//          return "Accessories";
-//        case 4:
-//          return "Outfits";
-//      }
-//      return null;
-//    }
+  public void imagePass (long id, long type) {
+    File filesDir = this.getFilesDir();
+    outfitFragment.imageTop1(id, filesDir, type);
   }
 }
 

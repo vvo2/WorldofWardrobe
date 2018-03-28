@@ -5,8 +5,6 @@ import static edu.cnm.deepdive.worldofwardrobe.MainActivity.TYPE_ID;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TopFragment extends Fragment {
+public class TopFragment extends Fragment{ // implements View.OnLongClickListener, View.OnClickListener
 
   private ListView topListView;
   private ItemPicAdapter adapter;
@@ -32,13 +30,12 @@ public class TopFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
     final View view = inflater.inflate(R.layout.fragment_top, container, false);
 
     new Thread(new Runnable() {
       @Override
       public void run() {
-        List listTops = ((MainActivity)getActivity()).getDatabase()
+        List listTops = ((MainActivity) getActivity()).getDatabase()
             .getItemDao().getByTypeIDs(getArguments().getLongArray(TYPE_ID));
         topListView = view.findViewById(R.id.listview_tops);
         adapter = new ItemPicAdapter(getActivity(), listTops);
@@ -54,9 +51,4 @@ public class TopFragment extends Fragment {
     return view;
   }
 
-  @Override
-  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-
-    super.onCreateContextMenu(menu, v, menuInfo);
-  }
 }

@@ -6,27 +6,8 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
-  android:background="@color/colorPrimaryDark"
+  android:background="@color/colorPrimary"
   tools:context="edu.cnm.deepdive.worldofwardrobe.MainActivity">
-
-  <!--android.support.design.widget.AppBarLayout
-    android:id="@+id/appbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/appbar_padding_top"
-    android:theme="@style/AppTheme.AppBarOverlay">
-
-    <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="?attr/colorPrimary"
-      app:layout_scrollFlags="scroll|enterAlways"
-      app:popupTheme="@style/AppTheme.PopupOverlay">
-
-    </android.support.v7.widget.Toolbar>
-
-  </android.support.design.widget.AppBarLayout-->
 
   <android.support.v4.view.ViewPager
     android:id="@+id/container"
@@ -38,7 +19,7 @@
     android:id="@+id/fab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/fab_margin"
+    android:layout_margin="@dimen/m6"
     android:layout_gravity="start|bottom"
     app:srcCompat="@drawable/outfit">
   </android.support.design.widget.FloatingActionButton>
@@ -47,7 +28,7 @@
     android:id="@+id/fab_edit"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/fab_margin"
+    android:layout_margin="@dimen/m6"
     android:layout_gravity="end|bottom"
     app:srcCompat="@drawable/add_minus">
   </android.support.design.widget.FloatingActionButton>
