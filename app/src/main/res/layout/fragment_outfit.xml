@@ -66,6 +66,7 @@
     android:layout_height="wrap_content"
     android:textColor="@color/colorPrimaryDark"
     android:text="@string/outfit_fragment"
+    android:textSize="@dimen/h4"
     android:layout_toRightOf="@id/img_head"/>
 
 </android.support.percent.PercentRelativeLayout>

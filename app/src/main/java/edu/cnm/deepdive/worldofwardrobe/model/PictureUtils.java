@@ -5,13 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 
+/**
+ * This class is for the two overload method to scale the bitmap
+ */
 public class PictureUtils {
 
-  /**Scale method from Android Nerd Wrench chapter 16
-   * scale down to the device screen size
+  /**
+   * This overload is less efficient but more conservative.
    * @param path        path of photo
-   * @param activity    window manager default display
-   * @return            path and size x y for the other overload
+   * @param activity    to get window manager and the default display
+   * @return            a Bitmap
    */
   public static Bitmap getScaledBitmap(String path, Activity activity) {
     Point size = new Point();
@@ -20,6 +23,14 @@ public class PictureUtils {
     return getScaledBitmap(path, size.x, size.y);
   }
 
+  /**
+   * This overload is more efficient and is used in the
+   * {@link edu.cnm.deepdive.worldofwardrobe.fragments.OutfitFragment Outfit Fragment}.
+   * @param path        path of photo
+   * @param destWidth    a prefer width passed when invoking this method
+   * @param destHeight   a prefer height passed when invoking this method
+   * @return            a Bitmap
+   */
   public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
 // Read in the dimensions of the image on disk
     BitmapFactory.Options options = new BitmapFactory.Options();

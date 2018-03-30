@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,8 +35,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The edit fragment currently adding items with gallery intent
+ * and camera intent, add new wardrobe, and add new items type.
+ * This class implements OnClickListener because
+ * the buttons and spinners share the overridden OnClick.
+ */
 public class EditFragment extends Fragment implements OnClickListener {
 
+  /**
+   * 3 String extract for the image codes and 2 for the Toast.
+   */
   private static final int REQUEST_PHOTO = 2;
   private static final int GALLERY = 1;
   public static final String IMAGE = "image/*";
@@ -54,8 +63,17 @@ public class EditFragment extends Fragment implements OnClickListener {
   private ImageView photoView;
   private String photoFileName;
   private View view;
-  File photoFile; //dont need to be final regardless from anonomous
+  File photoFile;
 
+  /**
+   * inflates the view with item type spinners, wardrobe selected spinner,
+   * camera button, photo file button, add a new item type button, add a wardrobe button,
+   * and excute the async task to populate the 2 spinners.
+   * @param inflater            for the fragment_edit layout
+   * @param container           container for view
+   * @param savedInstanceState  save the state
+   * @return                  the view for this fragment
+   */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -82,6 +100,14 @@ public class EditFragment extends Fragment implements OnClickListener {
     return view;
   }
 
+  /**
+   * Adding item with camera or gallery share the same code for addting into the database,
+   * the two intent split up as as the intent's broascast message are different.
+   * Adding a new wardrobe is currently without photo
+   * Adding a new item type need to coordinates with an existing ImageView in the outfit layout
+   * otherwise the item won't be seen in the layout.
+   * @param v     this determine which button is clicked
+   */
   @Override
   public void onClick(final View v) {
 
@@ -158,6 +184,9 @@ public class EditFragment extends Fragment implements OnClickListener {
           ((MainActivity) getActivity()).getDatabase().getItemTypeDao().insertType(addType);
         }
       }).start();
+      Toast toast = Toast.makeText(getContext(), "Type: " + strTypeName + " was added", Toast.LENGTH_SHORT);
+      toast.setGravity(Gravity.CENTER, 0, 0);
+      toast.show();
     } else if (v == addWardrobeButton) {
       final String strWardrobeName = ((EditText)
           view.findViewById(R.id.edittext_wardrobe)).getText().toString();
@@ -171,6 +200,9 @@ public class EditFragment extends Fragment implements OnClickListener {
           ((MainActivity) getActivity()).getDatabase().getWardrobeDao().insertWardrobe(addWardrobe);
         }
       }).start();
+      Toast toast = Toast.makeText(getContext(), "Wardrobe: " + strWardrobeName + " was added", Toast.LENGTH_SHORT);
+      toast.setGravity(Gravity.CENTER, 0, 0);
+      toast.show();
     }
   }
 
@@ -205,8 +237,16 @@ public class EditFragment extends Fragment implements OnClickListener {
     }
   }
 
+  /**
+   * Get result back from the intent camera and gallery activity, revoke the write permission,
+   * the camera set a scaled bitmap to the photoView in the layout if photo was taken,
+   * and the gallery set a bitmap to the photoView if image file was selected.
+   * @param requestCode   to determine the gallery intent
+   * @param resultCode      not used
+   * @param data          to determine if an image file was selected
+   */
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) { //get back from activity camera
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
     Uri uri = FileProvider.getUriForFile(getActivity(), FILE_PROVIDER, photoFile);
     getActivity().revokeUriPermission(uri,
         Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -236,7 +276,7 @@ public class EditFragment extends Fragment implements OnClickListener {
 
   private void saveSelectedPic(Bitmap saveBitmap) {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream(); //output stream for data to be written in a byte array
-    saveBitmap.compress(CompressFormat.PNG, 90, bytes); //TODO try PNG for transparent pixels
+    saveBitmap.compress(CompressFormat.PNG, 90, bytes);
     File file = new File(photoFile.getPath());
     try {
       file.createNewFile();

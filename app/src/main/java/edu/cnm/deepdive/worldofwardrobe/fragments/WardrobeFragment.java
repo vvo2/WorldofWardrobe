@@ -13,17 +13,28 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * this is the landing fragment page where clicking a wardrobe will only
+ * take the screen to the next fragment page, specified fron the OnClickListener.
+ * in {@link WardrobePicAdapter#getView}
  */
 public class WardrobeFragment extends Fragment {
 
   private ListView wardListView;
   private WardrobePicAdapter wardAdapter;
 
+  /**
+   * Required empty public constructor
+   */
   public WardrobeFragment() {
-    // Required empty public constructor
   }
 
+  /**
+   * This is where the {@link WardrobePicAdapter} view get inflated in the ListView of this fragment.
+   * @param inflater        inflate Wardrobe fragment layout
+   * @param container           container for the view
+   * @param savedInstanceState   to save the instance state
+   * @return                    The view for this fragment
+   */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {

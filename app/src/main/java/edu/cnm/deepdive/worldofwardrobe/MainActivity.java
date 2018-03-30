@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.worldofwardrobe;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase.Callback;
 import android.os.Bundle;
@@ -12,8 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import edu.cnm.deepdive.worldofwardrobe.fragments.AccessoriesFragment;
 import edu.cnm.deepdive.worldofwardrobe.fragments.EditFragment;
@@ -24,34 +21,38 @@ import edu.cnm.deepdive.worldofwardrobe.fragments.WardrobeFragment;
 import java.io.File;
 import java.util.concurrent.Executors;
 
+/**
+ * Main class with android's pre-coded viewpager a {@link PlaceholderFragment place holder},
+ * {@link SectionsPagerAdapter pager adapter}
+ * and methods to view 6 fragments.
+ */
 public class MainActivity extends AppCompatActivity {
 
+  /**
+   * 4 extracted constant for the database and 1 constant for the pager.
+   * The TYPE_ID is to import into {@link TopFragment},
+   * {@link BottomFragment}, and {@link AccessoriesFragment}
+   */
   public static final String TYPE_ID = "itemTypeID";
+  public static final String ITEM_DB = "itemDB";
+  public static final String DEFAULT_WARDROBE = "INSERT INTO wardrobe (`wardrobe_name`, `description`) VALUES ('formal', 'wardrobe for the business casual and formal attire'), ('casual', 'wardrobe for casual items');";
+  public static final String DEFAULT_TYPES = "INSERT INTO item_type (`item_type_name`) VALUES ('top'), ('outer top'), ('bottom'), ('shoe'), ('head item'), ('face item'), ('hand item');";
+  public static final String SECTION_NUMBER = "section_number";
   private ItemsDatabase database;
-
-
-  /**
-   * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
-   * sections. We use a {@link FragmentPagerAdapter} derivative, which will keep every loaded
-   * fragment in memory. If this becomes too memory intensive, it may be best to switch to a {@link
-   * android.support.v4.app.FragmentStatePagerAdapter}.
-   */
   private SectionsPagerAdapter mSectionsPagerAdapter;
-
-  /**
-   * The {@link ViewPager} that will host the section contents.
-   */
   private ViewPager mViewPager;
   private OutfitFragment outfitFragment = new OutfitFragment();
 
-
+  /**
+   * Creates what applies to all fragments which is
+   * the pager adapter, view pager, and floating buttons.
+   * @param savedInstanceState    Need to save the instance state
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    //setSupportActionBar(toolbar);
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -77,49 +78,30 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
-  }
-
+  /**
+   * Created this method for the Wardrobe Adapter  to jump the fragments when user select a wardrobe.
+   * @param position      position is the page number for the fragment
+   */
   public void switchTab(int position) { //TODO add entities
     mViewPager.setCurrentItem(position, true);
   }
 
   /**
-   * create database if null and then insert raw query string for default wardrobe_name and item_type_name
-   * @return
+   * Create database if null and then insert raw query string for default wardrobe_name and item_type_name.
+   * @return        return a database
    */
   public ItemsDatabase getDatabase() {
     if (database == null) {
       database = Room.databaseBuilder
-          (getApplicationContext(), ItemsDatabase.class, "itemDB").addCallback(new Callback() {
+          (getApplicationContext(), ItemsDatabase.class, ITEM_DB).addCallback(new Callback() {
         @Override
         public void onCreate(@NonNull final SupportSQLiteDatabase db) {
           super.onCreate(db);
           Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
             @Override
             public void run() {
-              db.execSQL("INSERT INTO wardrobe (`wardrobe_name`) VALUES ('formal'), ('casual'), ('medival'), ('armory')");
-              db.execSQL("INSERT INTO item_type (`item_type_name`) VALUES ('top'), ('outer top'), ('bottom'), ('shoe'), ('head piece'), ('scarf'), ('glove');");
+              db.execSQL(DEFAULT_WARDROBE);
+              db.execSQL(DEFAULT_TYPES);
             }
           });
         }
@@ -138,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The fragment argument representing the section number for this fragment.
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_SECTION_NUMBER = SECTION_NUMBER;
 
     public PlaceholderFragment() {
     }
@@ -154,13 +136,6 @@ public class MainActivity extends AppCompatActivity {
       return fragment;
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//        Bundle savedInstanceState) {
-//      View rootView = inflater.inflate(R.layout.fragment_edit, container, false);
-//
-//      return rootView;
-//    }
   }
 
   /**
@@ -173,10 +148,16 @@ public class MainActivity extends AppCompatActivity {
       super(fm);
     }
 
+    /**
+     * User swipe the touch screen left and right to gets position
+     * getItem is called to instantiate the fragment for the given page.
+     * @param position    corresponding fragment number
+     * @return        a PlaceholderFragment
+     */
     @Override
-    public Fragment getItem(int position) { //swipe left and right gets position
-      // getItem is called to instantiate the fragment for the given page.
-      // Return a PlaceholderFragment (defined as a static inner class below).
+    public Fragment getItem(int position) { //
+      //
+      // Return
       switch (position) {
         case 0:
           return new WardrobeFragment();
@@ -199,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
           accFragment.setArguments(bundleAcc);
           return accFragment;
         case 4:
-
           return outfitFragment;
         case 5:
           return new EditFragment();
@@ -209,16 +189,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This short method configures the total number of sliding fragments for this app.
+     * @return
+     */
     @Override
     public int getCount() {
-      // Show 5 total pages.
       return 6;
     }
   }
 
-  public void imagePass (long id, long type) {
+  /**
+   * Pass the item ID and item type ID from the
+   * {@link edu.cnm.deepdive.worldofwardrobe.fragments.ItemPicAdapter ItemPicAdapter}
+   * for the outfitFragment instance to prior to instantiating outfitFragment.
+   * @param id      item ID from the item database
+   * @param type    item type ID from the item database
+   */
+  public void selectedItem(long id, long type) {
     File filesDir = this.getFilesDir();
-    outfitFragment.imageTop1(id, filesDir, type);
+    outfitFragment.imageRefer(id, filesDir, type);
   }
 }
 

@@ -6,8 +6,9 @@
 
   <ImageView
     android:id="@+id/image_wardrobe"
-    android:layout_width="200sp"
-    android:layout_height="150sp"/>
+    android:layout_width="150sp"
+    android:layout_height="150sp"
+    android:src="@drawable/wardrobe"/>
 
   <TextView
     android:id="@+id/text_wardrobe_name"

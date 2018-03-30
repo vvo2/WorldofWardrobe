@@ -15,18 +15,28 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * This fragment purpose is to show item type ID 1 and 2 as defined in
+ * {@link edu.cnm.deepdive.worldofwardrobe.MainActivity.SectionsPagerAdapter#getItem(int) getItem(int position)}.
  */
-public class TopFragment extends Fragment{ // implements View.OnLongClickListener, View.OnClickListener
+public class TopFragment extends Fragment{
 
   private ListView topListView;
   private ItemPicAdapter adapter;
 
+  /**
+   * Required empty public constructor
+   */
   public TopFragment() {
-    // Required empty public constructor
   }
 
-
+  /**
+   * TopFragment Inflate the fragment_top and the {@link ItemPicAdapter} populate the ListView
+   * with items that are type "tops" and "outer top" (type_ID 1 and 2).
+   * @param inflater          for the fragment_top layout
+   * @param container           container for view
+   * @param savedInstanceState  save the state
+   * @return                  the view for this fragment
+   */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {

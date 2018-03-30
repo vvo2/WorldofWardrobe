@@ -21,7 +21,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/m6"
     android:layout_gravity="start|bottom"
-    app:srcCompat="@drawable/outfit">
+    app:srcCompat="@drawable/hanger">
   </android.support.design.widget.FloatingActionButton>
 
   <android.support.design.widget.FloatingActionButton

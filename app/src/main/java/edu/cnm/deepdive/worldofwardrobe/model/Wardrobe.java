@@ -4,6 +4,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+/**
+ * the wardrobe entity for the database, have a unique ID, name for the wardrobe
+ * and description of the wardrobe, getter and setter of name and description
+ * and a overridden toString method to make the string useful.
+ */
 @Entity(tableName = "wardrobe")
 public class Wardrobe {
 
@@ -42,8 +47,8 @@ public class Wardrobe {
   }
 
   /**
-   * make wardrobeName return a name string instead of long path string
-   * @return  return defined name from wardrobeName
+   * Make wardrobeName return a name string instead of long path string.
+   * @return    a name of the wardrobe
    */
   @Override
   public String toString() {

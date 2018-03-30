@@ -1,0 +1,156 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ce978b44c06b96891046dee0485060e4",
+    "entities": [
+      {
+        "tableName": "item",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wardrobe_id` INTEGER NOT NULL, `item_type_id` INTEGER NOT NULL, `item_name` TEXT COLLATE NOCASE, `price` REAL NOT NULL, `location` TEXT, `last_worn` TEXT, `worn_count` INTEGER NOT NULL, FOREIGN KEY(`wardrobe_id`) REFERENCES `wardrobe`(`wardrobe_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`item_type_id`) REFERENCES `item_type`(`item_type_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "itemID",
+            "columnName": "itemID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wardrobeID",
+            "columnName": "wardrobe_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "itemTypeID",
+            "columnName": "item_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "itemName",
+            "columnName": "item_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "itemPrice",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastWorn",
+            "columnName": "last_worn",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wornCount",
+            "columnName": "worn_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "itemID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "wardrobe",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "wardrobe_id"
+            ],
+            "referencedColumns": [
+              "wardrobe_id"
+            ]
+          },
+          {
+            "table": "item_type",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "item_type_id"
+            ],
+            "referencedColumns": [
+              "item_type_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "item_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_type_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `item_type_name` TEXT COLLATE NOCASE)",
+        "fields": [
+          {
+            "fieldPath": "itemTypeID",
+            "columnName": "item_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "itemTypeName",
+            "columnName": "item_type_name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "item_type_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "wardrobe",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`wardrobe_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wardrobe_name` TEXT COLLATE NOCASE, `description` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "wardrobeID",
+            "columnName": "wardrobe_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wardrobeName",
+            "columnName": "wardrobe_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "wardrobe_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ce978b44c06b96891046dee0485060e4\")"
+    ]
+  }
+}

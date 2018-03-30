@@ -15,18 +15,28 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * AccessoriesFragment purpose is to show item type ID 5, 6, and 7 as defined in
+ * {@link edu.cnm.deepdive.worldofwardrobe.MainActivity.SectionsPagerAdapter#getItem(int) getItem(int position)}
  */
 public class AccessoriesFragment extends Fragment {
 
   private ListView accListView;
   private ItemPicAdapter adapter;
 
+  /**
+   * Required empty public constructor
+   */
   public AccessoriesFragment() {
-    // Required empty public constructor
   }
 
-
+  /**
+   * Inflate the fragment_accessories and the {@link ItemPicAdapter} populate the ListView
+   * with items that are type "head item", "face item", and "hand item" (type_ID 5, 6, and 7).
+   * @param inflater          for the fragment_top layout
+   * @param container           container for view
+   * @param savedInstanceState  save the state
+   * @return                  the view this fragment
+   */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {

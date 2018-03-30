@@ -19,6 +19,7 @@
     android:paddingTop="@dimen/p1"
     android:paddingBottom="@dimen/p1"
     android:layout_margin="@dimen/m4"
+
     android:text="@string/select_wardrobe"
     android:textAlignment="center"/>
   <Spinner

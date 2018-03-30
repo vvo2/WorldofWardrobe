@@ -5,6 +5,10 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+/**
+ * Item entity with wardrobe ID and item type ID as foreign key,
+ * last worn and worn counter are not yet coded in this app.
+ */
 @Entity(tableName = "item", foreignKeys = {@ForeignKey(entity = Wardrobe.class,
     parentColumns = "wardrobe_id",
     childColumns = "wardrobe_id",
@@ -102,6 +106,10 @@ public class Item {
     this.wornCount = wornCount;
   }
 
+  /**
+   * Make Item return item name, price, and ID string instead of long path string.
+   * @return    item name, price, and ID
+   */
   public String toString() {
     return itemName + " " + itemPrice + " " + itemTypeID;
   }

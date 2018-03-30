@@ -1,10 +1,12 @@
 package edu.cnm.deepdive.worldofwardrobe.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,18 +24,35 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemPicAdapter extends ArrayAdapter<Item>{
+/**
+ * A custom array adapter to populates the layout with items from the item
+ * database. User can scroll the ListView and each item can be click and long click.
+ */
+public class ItemPicAdapter extends ArrayAdapter<Item> {
 
   private Activity topActivity; //instead of context and don't have to call Activity later
   private List<Item> itemPicList = new ArrayList<>();
 
-
+  /**
+   * Requires an activity and a list inorder to proceed with the rest of this custom adapter.
+   * @param activity    this activity
+   * @param list        Item list from the database
+   */
   public ItemPicAdapter(@NonNull Activity activity, @LayoutRes List<Item> list) {
     super(activity, 0, list);
     topActivity = activity;
     itemPicList = list;
   }
 
+  /**
+   * Creates the view for the top, bottom, and accessories fragment and this custom array adapter.
+   * OnClick the item will make the {@link OutfitFragment} display the item in the outfit layout.
+   * OnLongClick will delete the item selected.
+   * @param position      position of the item on the list
+   * @param convertView   part of custom adapter
+   * @param parent      parent root
+   * @return            view for layout and custom array adapter
+   */
   @NonNull
   @Override
   public View getView(final int position, @NonNull View convertView, @NonNull ViewGroup parent) {
@@ -76,9 +95,10 @@ public class ItemPicAdapter extends ArrayAdapter<Item>{
     return listItem;
   }
 
+  @SuppressLint("StaticFieldLeak")
   private void clicker(final Item item, final byte click) {
 
-    new AsyncTask< Item, Void, Long>() {
+    new AsyncTask<Item, Void, Long>() {
 
       @Override
       protected Long doInBackground(Item... items) {
@@ -94,13 +114,15 @@ public class ItemPicAdapter extends ArrayAdapter<Item>{
         String str = " was deleted";
         if (click == 0) {
           long typeID = item.getItemTypeID();
-          ((MainActivity) topActivity).imagePass(longID, typeID);
+          ((MainActivity) topActivity).selectedItem(longID, typeID);
           str = " was selected";
         }
 
-        Toast.makeText(getContext(), "item # " + longID + str, Toast.LENGTH_SHORT).show();
-
+        Toast toast = Toast.makeText(getContext(), "item # " + longID + str, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
       }
+
     }.execute();
   }
 

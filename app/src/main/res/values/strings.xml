@@ -4,11 +4,10 @@
   <string name="section_format">Select a: %1$d</string>
 
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_wardrobe_fragment">the wardrobe</string>
-  <string name="text_add_wardrobe">add a new wardrobe</string>
-  <string name="hello_top_fragment">the tops</string>
-  <string name="hello_bottom_fragment">the bottoms</string>
-  <string name="hello_accessories_fragment">the accessories</string>
+  <string name="no_wardrobe_added">no wardrobe added</string>
+  <string name="no_top_added">no tops added</string>
+  <string name="no_bottom_added">no bottoms added</string>
+  <string name="no_accessories_added">no accessories added</string>
   <string name="outfit_fragment">the outfit</string>
 
   <string name="select_wardrobe">select wardrobe</string>
