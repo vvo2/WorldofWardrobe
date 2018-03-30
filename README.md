@@ -33,7 +33,7 @@ My pace did not make it this far. I also realize there may be a better way to ge
 Samsung ST-530 Tablet, Android Nougat 7.1, vertical and horizontal
 Motorola Nexus 6 phone, Android Nougat 7.0, vertical and horizontal
 
-### License
+### [License](LICENSE.md)
 
 Copyright 2018 &copy;, Vuong Vo
 
@@ -48,7 +48,5 @@ Copyright 2018 &copy;, Vuong Vo
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-   
-   Android Library license
    
    [Android Library](https://source.android.com/) & [License](https://source.android.com/setup/licenses)
